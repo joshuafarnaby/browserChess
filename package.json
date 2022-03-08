@@ -1,0 +1,26 @@
+{
+  "name": "browserchess",
+  "version": "1.0.0",
+  "description": "Play Chess in your web browser!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshuafarnaby/browserChess.git"
+  },
+  "keywords": [
+    "chess"
+  ],
+  "author": "Joshua Farnaby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshuafarnaby/browserChess/issues"
+  },
+  "homepage": "https://github.com/joshuafarnaby/browserChess#readme",
+  "devDependencies": {
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  }
+}
