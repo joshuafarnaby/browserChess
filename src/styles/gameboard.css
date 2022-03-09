@@ -1,0 +1,17 @@
+.gameboard {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.board-square {
+  height: 75px;
+  width: 75px;
+}
+
+.white {
+  background-color: #eee;
+}
+
+.black {
+  background-color: #777;
+}
