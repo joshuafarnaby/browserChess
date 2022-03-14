@@ -2,7 +2,7 @@ import { pubsub } from "./pubsub";
 
 export const gameController = (() => {
   let whiteTurn = true;
-  let currentPlayer = 'white';
+  let currentPlayer = 'black';
 
   const getPosition = (boardSquare) => {
     const x = boardSquare.getAttribute('data-x');
@@ -21,6 +21,7 @@ export const gameController = (() => {
       const peiceData = {
         color: currentPlayer,
         type: chessPeice.getAttribute('data-type'),
+        // position: chessPeice.parentElement,
         position: getPosition(chessPeice.parentElement),
       }
 

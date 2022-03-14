@@ -3,6 +3,7 @@ import './styles/style.css'
 import { pubsub } from './pubsub';
 import { gameController } from './gameController';
 import { moveSet } from './moveSet';
+import { pathBuilder } from './pathBuilder';
 
 const uiController = (() => {
   const gameboard = document.querySelectorAll('.board-square');
