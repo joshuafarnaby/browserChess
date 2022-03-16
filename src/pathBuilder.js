@@ -6,19 +6,11 @@ export const pathBuilder = (() => {
   }
 
   const pathHandler = (peiceData) => {
-    // let startPosition = document.querySelector(`[data-x='${peiceData.position[0]}'][data-y='${peiceData.position[1]}']`);
-
-    console.log(peiceData);
-
-    const startingPostion = peiceData.position;
-    const moveSet = peiceData.moves;
-    const color = peiceData.color;
-
     const potentialSquares = [];
 
-    moveSet.forEach(move => {
-      let currentX = startingPostion[0];
-      let currentY = startingPostion[1];
+    peiceData.moves.forEach(move => {
+      let currentX = peiceData.position[0];
+      let currentY = peiceData.position[1];
 
       let nextX;
       let nextY;
@@ -29,18 +21,15 @@ export const pathBuilder = (() => {
         nextX = currentX + move[0];
         nextY = currentY + move[1];
 
-        console.log(nextX, nextY);
-
         if (outOfBounds(nextX) || outOfBounds(nextY)) break;
 
         nextSquare = document.querySelector(`[data-x="${nextX}"][data-y="${nextY}"]`);
 
-
         if (nextSquare.firstChild) {
-          if (nextSquare.firstChild.classList.contains(color)) {
-            break
+          if (nextSquare.firstChild.classList.contains(peiceData.color)) {
+            break;
           } else {
-            potentialSquares.push(nextSquare)
+            potentialSquares.push(nextSquare);
           }
         } else {
           potentialSquares.push(nextSquare);
@@ -51,8 +40,10 @@ export const pathBuilder = (() => {
       }
     })
 
-    potentialSquares.forEach(square => square.style.backgroundColor = 'red');
+    peiceData.potentialSquares = potentialSquares;
 
+    pubsub.publish('squaresFound', peiceData);
+    // potentialSquares.forEach(square => square.style.backgroundColor = 'red');
   }
 
   pubsub.subscribe('movesAquired', pathHandler)

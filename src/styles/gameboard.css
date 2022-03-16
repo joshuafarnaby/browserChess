@@ -26,7 +26,7 @@
 
 .highlight {
   animation-name: pulse;
-  animation-duration: 0.5s;
+  animation-duration: 0.25s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-timing-function: ease-in-out;
@@ -49,6 +49,6 @@ div > p:hover {
   }
 
   to {
-    transform: scale(1.05);
+    transform: scale(1.1);
   }
 }

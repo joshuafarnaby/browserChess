@@ -2,34 +2,15 @@ import { pubsub } from "./pubsub";
 
 export const gameController = (() => {
   let whiteTurn = true;
-  let currentPlayer = 'black';
+  let currentPlayer = 'white';
 
-  const getPosition = (boardSquare) => {
-    const x = boardSquare.getAttribute('data-x');
-    const y = boardSquare.getAttribute('data-y');
-
-    return [Number(x), Number(y)]
-  }
-
-  const handleTurnStart = (chessPeice) => {
-    if (chessPeice.classList.contains(currentPlayer)) {
-      // request move set
-      // color = currentPlayer
-      // const peiceType = chessPeice.getAttribute('data-type');
-      // const position = getPosition(chessPeice.parentElement);
-
-      const peiceData = {
-        color: currentPlayer,
-        type: chessPeice.getAttribute('data-type'),
-        // position: chessPeice.parentElement,
-        position: getPosition(chessPeice.parentElement),
-      }
-
-      pubsub.publish('requestMoves', peiceData)
+  const validateTurnStart = (obj) => {
+    if (obj.color != currentPlayer) {
+      pubsub.publish('gameError', 'You cannot select your opponents peice');
     } else {
-      pubsub.publish('wrongColor', 'You cannot select your opponents peice');
+      // valid turn start - move to 2nd stage
     }
   }
 
-  pubsub.subscribe('turnStart', handleTurnStart)
+  pubsub.subscribe('turnInitiated', validateTurnStart);
 })();
