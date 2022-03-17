@@ -2,7 +2,6 @@ import './styles/style.css'
 
 import { pubsub } from './pubsub';
 import { gameController } from './gameController';
-import { pathBuilder } from './pathBuilder'; 
 
 import { Rook } from './chessPeices/rook';
 
@@ -11,12 +10,14 @@ const uiDisplay = (() => {
   const chessPeices = document.querySelectorAll('.chess-peice');
   const messages = document.getElementById('messages');
 
-  let elementToMove;
+  let elementToMove = null;
 
   const initialiseBoard = () => {
     chessPeices.forEach(chessPeice => {
       chessPeice.addEventListener('click', initiateTurn);
     })
+
+    elementToMove = null;
   }
 
   const initiateTurn = (ev) => {
@@ -48,6 +49,16 @@ const uiDisplay = (() => {
     pubsub.publish('moveInitiated', position);
   }
 
+  const executeMove = (moveData) => {
+    const target = document.querySelector(`[data-row="${moveData.targetPosition[0]}"][data-col="${moveData.targetPosition[1]}"]`);
+
+    target.appendChild(elementToMove);
+
+    elementToMove.classList.remove('highlight');
+
+    initialiseBoard();
+  }
+
   const prepareBoardForMove = (data) => {
     // remove event listeners so another turn isn't initiated
     chessPeices.forEach(chessPeice => {
@@ -72,4 +83,5 @@ const uiDisplay = (() => {
 
   pubsub.subscribe('gameError', displayMessage);
   pubsub.subscribe('validTurnStart', prepareBoardForMove);
+  pubsub.subscribe('moveExecuted', executeMove)
 })();

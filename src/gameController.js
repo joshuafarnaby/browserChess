@@ -4,8 +4,8 @@ import { Rook } from "./chessPeices/rook";
 
 export const gameController = (() => {
   let whiteTurn = true;
-  let currentPlayer = 'white';
-  let currentMovingPeice;
+  let currentPlayer;
+  let currentMovingPeice = null;
 
   const wr1 = Rook('white');
   const wr2 = Rook('white');
@@ -22,6 +22,18 @@ export const gameController = (() => {
     ['', '', '', '', '', '', '', ''],
     [wr1, '', '', '', '', '', '', wr2]
   ];
+
+  const executeMove = (targetPosition) => {
+    const currentPosition = currentMovingPeice.getCurrentPosition();
+
+    gameboard[targetPosition[0]][targetPosition[1]] = currentMovingPeice;
+    gameboard[currentPosition[0]][currentPosition[1]] = ''
+
+    pubsub.publish('moveExecuted', { currentPosition, targetPosition });
+
+    whiteTurn = !whiteTurn;
+    initialiseBoard();
+  }
 
   const validateTurnStart = (obj) => {
     const selectedPeice = gameboard[obj.position[0]][obj.position[1]];
@@ -55,9 +67,9 @@ export const gameController = (() => {
     })
 
     if (validMove) {
-      console.log('validMove');
+      executeMove(selectedPosition);
     } else {
-      console.log('invalidMove');
+      pubsub.publish('gameError', 'That move is invalid')
     }
   }
 
@@ -70,6 +82,9 @@ export const gameController = (() => {
         peice.setPotentialNextMoves(gboard);
       })
     })
+
+    currentPlayer = whiteTurn ? 'white' : 'black';
+    currentMovingPeice = null;
   }
 
   initialiseBoard();

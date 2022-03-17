@@ -1,6 +1,7 @@
 export const Rook = (peiceColor) => {
   const color = peiceColor;
   const currentPosition = [];
+  const type = 'Rook'
 
   const MOVE_SET = [[0, 1], [1, 0], [0, -1], [-1, 0]];
   const potentialNextMoves = [];
@@ -8,6 +9,8 @@ export const Rook = (peiceColor) => {
   const outOfBounds = (n) => n < 0 || n > 7;
 
   const getColor = () => color;
+
+  const getType = () => type;
 
   const getCurrentPosition = () => currentPosition;
   const setCurrentPosition = (newPosition) => {
@@ -18,7 +21,7 @@ export const Rook = (peiceColor) => {
   const getPotentialNextMoves = () => potentialNextMoves;
   const setPotentialNextMoves = (gameboard) => {
     potentialNextMoves.length = 0;
-    
+
     MOVE_SET.forEach(move => {
       let currentRow = currentPosition[0];
       let currentCol = currentPosition[1]
@@ -53,6 +56,7 @@ export const Rook = (peiceColor) => {
 
   return {
     getColor,
+    getType,
     getCurrentPosition,
     setCurrentPosition,
     getPotentialNextMoves,
