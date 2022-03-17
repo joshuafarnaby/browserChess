@@ -50,10 +50,15 @@ const uiDisplay = (() => {
   }
 
   const executeMove = (moveData) => {
+    // make sure this can be extended to cover castling, en passant etc.
     const target = document.querySelector(`[data-row="${moveData.targetPosition[0]}"][data-col="${moveData.targetPosition[1]}"]`);
 
-    target.appendChild(elementToMove);
+    if (moveData.mode == 'capture') {
+      target.removeChild(target.firstChild);
+    }
 
+    target.appendChild(elementToMove);
+    
     elementToMove.classList.remove('highlight');
 
     initialiseBoard();
@@ -83,5 +88,5 @@ const uiDisplay = (() => {
 
   pubsub.subscribe('gameError', displayMessage);
   pubsub.subscribe('validTurnStart', prepareBoardForMove);
-  pubsub.subscribe('moveExecuted', executeMove)
+  pubsub.subscribe('executeMove', executeMove)
 })();

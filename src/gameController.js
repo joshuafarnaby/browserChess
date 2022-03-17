@@ -7,6 +7,8 @@ export const gameController = (() => {
   let currentPlayer;
   let currentMovingPeice = null;
 
+  const graveyard = [];
+
   const wr1 = Rook('white');
   const wr2 = Rook('white');
 
@@ -25,12 +27,20 @@ export const gameController = (() => {
 
   const executeMove = (targetPosition) => {
     const currentPosition = currentMovingPeice.getCurrentPosition();
-
+    let mode;
+    
+    if (gameboard[targetPosition[0]][targetPosition[1]]) {
+      graveyard.push(gameboard[targetPosition[0]][targetPosition[1]]);
+      mode = 'capture'
+    } else {
+      mode = 'standard'
+    }
+    
     gameboard[targetPosition[0]][targetPosition[1]] = currentMovingPeice;
     gameboard[currentPosition[0]][currentPosition[1]] = ''
-
-    pubsub.publish('moveExecuted', { currentPosition, targetPosition });
-
+  
+    pubsub.publish('executeMove', { mode, currentPosition, targetPosition });
+    
     whiteTurn = !whiteTurn;
     initialiseBoard();
   }
