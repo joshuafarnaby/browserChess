@@ -4,6 +4,7 @@ import { pubsub } from './pubsub';
 import { gameController } from './gameController';
 
 import { Rook } from './chessPeices/rook';
+import { knight } from './chessPeices/knight';
 
 const uiDisplay = (() => {
   const gameboard = document.querySelectorAll('.board-square');

@@ -1,6 +1,7 @@
 import { pubsub } from "./pubsub";
 
 import { Rook } from "./chessPeices/rook";
+import { Knight } from "./chessPeices/knight";
 
 export const gameController = (() => {
   let _whiteTurn = true;
@@ -11,19 +12,23 @@ export const gameController = (() => {
 
   const wr1 = Rook('white');
   const wr2 = Rook('white');
+  const wk1 = Knight('white');
+  const wk2 = Knight('white');
 
   const br1 = Rook('black');
   const br2 = Rook('black');
+  const bk1 = Knight('black');
+  const bk2 = Knight('black');
 
   const gameboard = [
-    [br1, '', '', '', '', '', '', br2],
+    [br1, bk1, '', '', '', '', bk2, br2],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
-    [wr1, '', '', '', '', '', '', wr2]
+    [wr1, wk1, '', '', '', '', wk2, wr2]
   ];
 
   const cancelTurn = () => {
@@ -63,7 +68,7 @@ export const gameController = (() => {
     } else {
       // player has selected a valid peice to move
       _currentMovingPeice = selectedPeice;
-
+      console.log(_currentMovingPeice.getPotentialNextMoves());
       const turnData = {
         currentPosition: selectedPeice.getCurrentPosition()
       };
