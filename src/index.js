@@ -10,9 +10,13 @@ const uiDisplay = (() => {
   const chessPeices = document.querySelectorAll('.chess-peice');
   const messages = document.getElementById('messages');
 
-  let elementToMove = null;
+  let elementToMove;
 
   const initialiseBoard = () => {
+    gameboard.forEach(square => {
+      square.removeEventListener('click', initiateMove)
+    })
+  
     chessPeices.forEach(chessPeice => {
       chessPeice.addEventListener('click', initiateTurn);
     })
@@ -84,9 +88,16 @@ const uiDisplay = (() => {
     setTimeout(() => (messages.innerText = ''), 2000);
   }
 
+  const turnCancel = () => {
+    elementToMove.classList.remove('highlight');
+    displayMessage('You have cancelled that move - select another peice');
+    initialiseBoard();
+  }
+
   initialiseBoard()
 
   pubsub.subscribe('gameError', displayMessage);
   pubsub.subscribe('validTurnStart', prepareBoardForMove);
-  pubsub.subscribe('executeMove', executeMove)
+  pubsub.subscribe('executeMove', executeMove);
+  pubsub.subscribe('turnCancelled', turnCancel)
 })();
