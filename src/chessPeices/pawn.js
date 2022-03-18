@@ -50,6 +50,20 @@ export const Pawn = function(peiceColor) {
     })
   }
 
+  const validateMove = (gameboard, targetPosition) => {
+    // check if the target position is at least one of the potential target positions
+    return (potentialNextMoves.some(move => targetPosition[0] == move[0] && targetPosition[1] == move[1]))
+
+    // if (currentPosition[1] == targetPosition[1]) {
+    //   // then move is along same file i.e. advancement not capture
+      
+    // }
+  } 
+
+  const samePosition = (targetPosition) => {
+    return currentPosition[0] == targetPosition[0] && currentPosition[1] == targetPosition[1]
+  }
+
   const updateState = () => {
     movesMade += 1;
 
@@ -65,6 +79,8 @@ export const Pawn = function(peiceColor) {
     setCurrentPosition,
     getPotentialNextMoves,
     setPotentialNextMoves,
-    updateState
+    updateState,
+    validateMove,
+    samePosition
   }
 }

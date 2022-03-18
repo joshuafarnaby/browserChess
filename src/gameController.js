@@ -63,25 +63,11 @@ export const gameController = (() => {
     }
   }
 
-  const validateMove = (selectedPosition) => {
-    const currentPosition = _currentMovingPeice.getCurrentPosition();
-
-    if (currentPosition[0] == selectedPosition[0] && currentPosition[1] == selectedPosition[1]) {
-      cancelTurn();
-      return
-    }
-
-    const validPositions = _currentMovingPeice.getPotentialNextMoves();
-    let validMove = false;
-
-    validPositions.forEach(position => {
-      if (position[0] == selectedPosition[0] && position[1] == selectedPosition[1]) {
-        validMove = true
-      }
-    })
-
-    if (validMove) {
-      executeMove(selectedPosition);
+  const validateMove = (targetPosition) => {
+    if (_currentMovingPeice.samePosition(targetPosition)) {
+      cancelTurn()
+    } else if (_currentMovingPeice.validateMove(gameboard, targetPosition)) {
+      executeMove(targetPosition)
     } else {
       pubsub.publish('gameError', 'That move is invalid')
     }

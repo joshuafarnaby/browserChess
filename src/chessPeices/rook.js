@@ -58,12 +58,23 @@ export const Rook = function(peiceColor) {
     })
   }
 
+  const samePosition = (targetPosition) => {
+    return currentPosition[0] == targetPosition[0] && currentPosition[1] == targetPosition[1]
+  }
+
+  const validateMove = (gameboard, targetPosition) => {
+    // check if the target position is at least one of the potential target positions
+    return (potentialNextMoves.some(move => targetPosition[0] == move[0] && targetPosition[1] == move[1]));
+  }
+
   return {
     getColor,
     getType,
     getCurrentPosition,
     setCurrentPosition,
     getPotentialNextMoves,
-    setPotentialNextMoves
+    setPotentialNextMoves,
+    samePosition,
+    validateMove
   }
 }
