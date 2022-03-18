@@ -4,7 +4,7 @@ import { chessPeice } from "./chessPeice";
 export const King = function(peiceColor) {
   const color = peiceColor;
   const currentPosition = [];
-  const type = 'King';
+  const type = 'king';
 
   const MOVE_SET = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
   const potentialNextMoves = [];

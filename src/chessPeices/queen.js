@@ -3,7 +3,7 @@ import { chessPeice } from "./chessPeice";
 export const Queen = function(peiceColor) {
   const color = peiceColor;
   const currentPosition = [];
-  const type = 'Queen';
+  const type = 'queen';
 
   const MOVE_SET = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
   const potentialNextMoves = [];

@@ -14,31 +14,6 @@ export const gameController = (() => {
 
   const { gameboard } = gboard;
 
-  // const wr1 = Rook('white');
-  // const wr2 = Rook('white');
-  // const wk1 = Knight('white');
-  // const wk2 = Knight('white');
-  // const wb1 = Bishop('white');
-  // const wb2 = Bishop('white')
-
-  // const br1 = Rook('black');
-  // const br2 = Rook('black');
-  // const bk1 = Knight('black');
-  // const bk2 = Knight('black');
-  // const bb1 = Bishop('black');
-  // const bb2 = Bishop('black');
-
-  // const gameboard = [
-  //   [br1, bk1, bb1, '', '', bb2, bk2, br2],
-  //   ['', '', '', '', '', '', '', ''],
-  //   ['', '', '', '', '', '', '', ''],
-  //   ['', '', '', '', '', '', '', ''],
-  //   ['', '', '', '', '', '', '', ''],
-  //   ['', '', '', '', '', '', '', ''],
-  //   ['', '', '', '', '', '', '', ''],
-  //   [wr1, wk1, wb1, '', '', wb2, wk2, wr2]
-  // ];
-
   const cancelTurn = () => {
     pubsub.publish('turnCancelled');
     _currentMovingPeice = null;
@@ -56,7 +31,11 @@ export const gameController = (() => {
     }
     
     gameboard[targetPosition[0]][targetPosition[1]] = _currentMovingPeice;
-    gameboard[currentPosition[0]][currentPosition[1]] = ''
+    gameboard[currentPosition[0]][currentPosition[1]] = '';
+
+    if (_currentMovingPeice.getType() == 'pawn') {
+      _currentMovingPeice.updateState();
+    }
   
     pubsub.publish('executeMove', { mode, currentPosition, targetPosition });
     
@@ -76,7 +55,6 @@ export const gameController = (() => {
     } else {
       // player has selected a valid peice to move
       _currentMovingPeice = selectedPeice;
-      console.log(_currentMovingPeice.getPotentialNextMoves());
       const turnData = {
         currentPosition: selectedPeice.getCurrentPosition()
       };

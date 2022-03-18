@@ -1,13 +1,17 @@
 import { chessPeice } from "./chessPeice";
 
-export const Rook = function(peiceColor) {
+export const Pawn = function(peiceColor) {
   const color = peiceColor;
+  let movesMade = 0;
   const currentPosition = [];
-  const type = 'rook'
+  const type = 'pawn';
 
-  const MOVE_SET = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+  const MOVE_SET = color == 'white' ? 
+    [[-2, 0], [-1, -1], [-1, 0], [-1, 1]] : 
+    [[2, 0], [1, -1], [1, 0], [1, 1]];
+  
   const potentialNextMoves = [];
-
+  
   const { 
     outOfBounds,
   } = chessPeice;
@@ -27,35 +31,31 @@ export const Rook = function(peiceColor) {
     potentialNextMoves.length = 0;
 
     MOVE_SET.forEach(move => {
-      let currentRow = currentPosition[0];
-      let currentCol = currentPosition[1];
-      let nextRow;
-      let nextCol;
-      let nextPosition;
+      let nextRow = currentPosition[0] + move[0];
+      let nextCol = currentPosition[1] + move[1];
 
-      while (true) {
-        nextRow = currentRow + move[0];
-        nextCol = currentCol + move[1];
+      if (outOfBounds(nextRow) || outOfBounds(nextCol)) return;
 
-        if (outOfBounds(nextRow) || outOfBounds(nextCol)) break
+      let nextPosition = gameboard[nextRow][nextCol];
 
-        nextPosition = gameboard[nextRow][nextCol];
-
-        if (nextPosition != '') {
-          if (nextPosition.getColor() == color) {
-            break;
-          } else {
-            potentialNextMoves.push([nextRow, nextCol]);
-            break;
-          }
+      if (nextPosition != '') {
+        if (nextPosition.getColor() == color) {
+          return
         } else {
           potentialNextMoves.push([nextRow, nextCol]);
         }
-
-        currentRow = nextRow;
-        currentCol = nextCol;
+      } else {
+        potentialNextMoves.push([nextRow, nextCol]);
       }
     })
+  }
+
+  const updateState = () => {
+    movesMade += 1;
+
+    if (movesMade == 1) {
+      MOVE_SET.shift()
+    }
   }
 
   return {
@@ -64,6 +64,7 @@ export const Rook = function(peiceColor) {
     getCurrentPosition,
     setCurrentPosition,
     getPotentialNextMoves,
-    setPotentialNextMoves
+    setPotentialNextMoves,
+    updateState
   }
 }
