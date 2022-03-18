@@ -1,4 +1,6 @@
-export const Rook = (peiceColor) => {
+import { chessPeice } from "./chessPeice";
+
+export const Rook = function(peiceColor) {
   const color = peiceColor;
   const currentPosition = [];
   const type = 'Rook'
@@ -6,7 +8,9 @@ export const Rook = (peiceColor) => {
   const MOVE_SET = [[0, 1], [1, 0], [0, -1], [-1, 0]];
   const potentialNextMoves = [];
 
-  const outOfBounds = (n) => n < 0 || n > 7;
+  const { 
+    outOfBounds,
+  } = chessPeice;
 
   const getColor = () => color;
 
@@ -24,7 +28,7 @@ export const Rook = (peiceColor) => {
 
     MOVE_SET.forEach(move => {
       let currentRow = currentPosition[0];
-      let currentCol = currentPosition[1]
+      let currentCol = currentPosition[1];
       let nextRow;
       let nextCol;
       let nextPosition;
