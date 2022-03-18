@@ -1,8 +1,10 @@
+import { King } from "./chessPeices/king";
 import { Rook } from "./chessPeices/rook";
 import { Knight } from "./chessPeices/knight";
 import { Bishop } from "./chessPeices/bishop";
 
 export const gboard = (() => {
+  const wk = King('white');
   const wr1 = Rook('white');
   const wr2 = Rook('white');
   const wk1 = Knight('white');
@@ -10,6 +12,7 @@ export const gboard = (() => {
   const wb1 = Bishop('white');
   const wb2 = Bishop('white')
 
+  const bk = King('black')
   const br1 = Rook('black');
   const br2 = Rook('black');
   const bk1 = Knight('black');
@@ -18,14 +21,14 @@ export const gboard = (() => {
   const bb2 = Bishop('black');
 
   const gameboard = [
-    [br1, bk1, bb1, '', '', bb2, bk2, br2],
+    [br1, bk1, bb1, '', bk, bb2, bk2, br2],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
-    [wr1, wk1, wb1, '', '', wb2, wk2, wr2]
+    [wr1, wk1, wb1, '', wk, wb2, wk2, wr2]
   ];
 
   return {
