@@ -3,9 +3,9 @@ import './styles/style.css'
 import { pubsub } from './pubsub';
 import { gameController } from './gameController';
 
-import { Rook } from './chessPeices/rook';
-import { knight } from './chessPeices/knight';
-import { Bishop } from './chessPeices/bishop';
+// import { Rook } from './chessPeices/rook';
+// import { knight } from './chessPeices/knight';
+// import { Bishop } from './chessPeices/bishop';
 
 const uiDisplay = (() => {
   const gameboard = document.querySelectorAll('.board-square');
