@@ -50,14 +50,42 @@ export const Pawn = function(peiceColor) {
     })
   }
 
+  const validateAdvancement = (gameboard, targetPosition) => {
+    const targetSquare = gameboard[targetPosition[0]][targetPosition[1]];
+
+    if (Math.abs(currentPosition[0] - targetPosition[0] == 2)) {
+      const intermediateRow = (currentPosition[0] + targetPosition[0]) / 2;
+      const intermediateSquare = gameboard[intermediateRow][targetPosition[1]];
+
+      return intermediateSquare == '' && targetSquare == ''
+    } else {
+      return targetSquare == ''
+    }
+  }
+
+  const validateCapture = (gameboard, targetPosition) => {
+    const targetSquare = gameboard[targetPosition[0]][targetPosition[1]];
+
+    if (targetSquare == '') {
+      // en passant validation will go here
+      return false
+    } else {
+      console.log(!targetSquare.getColor() == color);
+      return !(targetSquare.getColor() == color)
+    }
+  }
+
   const validateMove = (gameboard, targetPosition) => {
     // check if the target position is at least one of the potential target positions
-    return (potentialNextMoves.some(move => targetPosition[0] == move[0] && targetPosition[1] == move[1]))
+    if (!potentialNextMoves.some(move => targetPosition[0] == move[0] && targetPosition[1] == move[1])) {
+      return false
+    }
 
-    // if (currentPosition[1] == targetPosition[1]) {
-    //   // then move is along same file i.e. advancement not capture
-      
-    // }
+    if (currentPosition[1] == targetPosition[1]) {
+      return validateAdvancement(gameboard, targetPosition)
+    } else {
+      return validateCapture(gameboard, targetPosition)
+    }
   } 
 
   const samePosition = (targetPosition) => {

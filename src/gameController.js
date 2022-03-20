@@ -67,7 +67,7 @@ export const gameController = (() => {
     if (_currentMovingPeice.samePosition(targetPosition)) {
       cancelTurn()
     } else if (_currentMovingPeice.validateMove(gameboard, targetPosition)) {
-      executeMove(targetPosition)
+      executeMove(targetPosition);
     } else {
       pubsub.publish('gameError', 'That move is invalid')
     }
