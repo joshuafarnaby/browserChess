@@ -48,7 +48,7 @@ export const gameController = (() => {
     const potentialNextMoves = selectedPeice.getPotentialNextMoves();
 
     if (selectedPeice.getColor() != _currentPlayer) {
-      pubsub.publish('gameError', 'You cannot select your opponents peice');
+      pubsub.publish('gameError', `You cannot select that peice - it is ${_currentPlayer}'s turn to move`);
     } else if (potentialNextMoves.length == 0) {
       // peice currently cannot move because it is blocked
       pubsub.publish('gameError', 'The selected peice is currently blocked from moving - select another')
