@@ -68,6 +68,7 @@ export const chessPeice = (type, color) => {
     })
   }
 
+  // this should belong to the gameController
   const samePosition = function (targetPosition) {
     return this.currentPosition[0] == targetPosition[0] && this.currentPosition[1] == targetPosition[1]
   }
