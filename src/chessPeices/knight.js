@@ -4,6 +4,7 @@ export const Knight = function(peiceColor) {
   const moveSet = [[-2, -1], [-2, 1], [-1, 2], [1, 2], [2, 1], [2, -1], [1, -2], [-1, -2]];
 
   const {
+    movesMade,
     type,
     color,
     currentPosition,
@@ -19,6 +20,7 @@ export const Knight = function(peiceColor) {
   }
 
   return {
+    movesMade,
     type,
     color,
     moveSet,

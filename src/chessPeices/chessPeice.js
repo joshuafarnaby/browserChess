@@ -1,4 +1,5 @@
 export const chessPeice = (type, color) => {
+  const movesMade = 0;
   const currentPosition = [];
   const potentialNextMoves = [];
 
@@ -72,6 +73,7 @@ export const chessPeice = (type, color) => {
   }
 
   return {
+    movesMade,
     type,
     color,
     outOfBounds,

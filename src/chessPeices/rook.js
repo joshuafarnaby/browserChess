@@ -9,6 +9,7 @@ export const Rook = (peiceColor) => {
   }
 
   const { 
+    movesMade,
     type,
     color,
     currentPosition,
@@ -19,6 +20,7 @@ export const Rook = (peiceColor) => {
   } = chessPeice('rook', peiceColor);
 
   return {
+    movesMade,
     type,
     color,
     moveSet,

@@ -12,8 +12,8 @@ export const gboard = (() => {
   const wr2 = Rook('white');
   const wk1 = Knight('white');
   const wk2 = Knight('white');
-  // const wb1 = Bishop('white');
-  // const wb2 = Bishop('white');
+  const wb1 = Bishop('white');
+  const wb2 = Bishop('white');
   // const wp1 = Pawn('white');
   // const wp2 = Pawn('white');
   // const wp3 = Pawn('white');
@@ -30,8 +30,8 @@ export const gboard = (() => {
   const br2 = Rook('black');
   const bk1 = Knight('black');
   const bk2 = Knight('black');
-  // const bb1 = Bishop('black');
-  // const bb2 = Bishop('black');
+  const bb1 = Bishop('black');
+  const bb2 = Bishop('black');
   // const bp1 = Pawn('black');
   // const bp2 = Pawn('black');
   // const bp3 = Pawn('black');
@@ -53,14 +53,14 @@ export const gboard = (() => {
   // ];
 
   const gameboard = [
-    [br1, bk1, '', '', '', '', bk2, br2],
+    [br1, bk1, bb1, '', '', bb2, bk2, br2],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
-    [wr1, wk1, '', '', '', '', wk2, wr2]
+    [wr1, wk1, wb1, '', '', wb2, wk2, wr2]
   ];
 
   return {
