@@ -1,54 +1,20 @@
 import { chessPeice } from "./chessPeice";
 
 export const Pawn = function(peiceColor) {
-  const color = peiceColor;
-  let movesMade = 0;
-  const currentPosition = [];
-  const type = 'pawn';
-
-  const MOVE_SET = color == 'white' ? 
+  const moveSet = peiceColor == 'white' ? 
     [[-2, 0], [-1, -1], [-1, 0], [-1, 1]] : 
     [[2, 0], [1, -1], [1, 0], [1, 1]];
-  
-  const potentialNextMoves = [];
-  
-  const { 
-    outOfBounds,
-  } = chessPeice;
 
-  const getColor = () => color;
-
-  const getType = () => type;
-
-  const getCurrentPosition = () => currentPosition;
-  const setCurrentPosition = (newPosition) => {
-    currentPosition[0] = newPosition[0];
-    currentPosition[1] = newPosition[1];
-  }
-
-  const getPotentialNextMoves = () => potentialNextMoves;
-  const setPotentialNextMoves = (gameboard) => {
-    potentialNextMoves.length = 0;
-
-    MOVE_SET.forEach(move => {
-      let nextRow = currentPosition[0] + move[0];
-      let nextCol = currentPosition[1] + move[1];
-
-      if (outOfBounds(nextRow) || outOfBounds(nextCol)) return;
-
-      let nextPosition = gameboard[nextRow][nextCol];
-
-      if (nextPosition != '') {
-        if (nextPosition.getColor() == color) {
-          return
-        } else {
-          potentialNextMoves.push([nextRow, nextCol]);
-        }
-      } else {
-        potentialNextMoves.push([nextRow, nextCol]);
-      }
-    })
-  }
+  const {
+    movesMade,
+    type,
+    color,
+    currentPosition,
+    setCurrentPosition,
+    potentialNextMoves,
+    findLimitedMoves: setPotentialNextMoves,
+    samePosition
+  } = chessPeice('pawn', peiceColor);
 
   const validateAdvancement = (gameboard, targetPosition) => {
     const targetSquare = gameboard[targetPosition[0]][targetPosition[1]];
@@ -70,8 +36,7 @@ export const Pawn = function(peiceColor) {
       // en passant validation will go here
       return false
     } else {
-      console.log(!targetSquare.getColor() == color);
-      return !(targetSquare.getColor() == color)
+      return !(targetSquare.color == color)
     }
   }
 
@@ -88,27 +53,25 @@ export const Pawn = function(peiceColor) {
     }
   } 
 
-  const samePosition = (targetPosition) => {
-    return currentPosition[0] == targetPosition[0] && currentPosition[1] == targetPosition[1]
-  }
-
-  const updateState = () => {
-    movesMade += 1;
+  const updateState = function () {
+    this.movesMade += 1;
 
     if (movesMade == 1) {
-      MOVE_SET.shift()
+      moveSet.shift()
     }
   }
 
   return {
-    getColor,
-    getType,
-    getCurrentPosition,
+    movesMade,
+    type,
+    color,
+    moveSet,
+    currentPosition,
     setCurrentPosition,
-    getPotentialNextMoves,
+    potentialNextMoves,
     setPotentialNextMoves,
-    updateState,
+    samePosition,
     validateMove,
-    samePosition
+    updateState
   }
 }
