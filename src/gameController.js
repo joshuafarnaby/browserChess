@@ -1,10 +1,6 @@
 import { pubsub } from "./pubsub";
 import { gboard } from "./gameboard";
 
-// import { Rook } from "./chessPeices/rook";
-// import { Knight } from "./chessPeices/knight";
-// import { Bishop } from "./chessPeices/bishop";
-
 export const gameController = (() => {
   let _whiteTurn = true;
   let _currentPlayer;
@@ -20,7 +16,7 @@ export const gameController = (() => {
   }
 
   const executeMove = (targetPosition) => {
-    const currentPosition = _currentMovingPeice.getCurrentPosition();
+    const currentPosition = _currentMovingPeice.currentPosition;
     let mode;
     
     if (gameboard[targetPosition[0]][targetPosition[1]]) {
@@ -33,7 +29,7 @@ export const gameController = (() => {
     gameboard[targetPosition[0]][targetPosition[1]] = _currentMovingPeice;
     gameboard[currentPosition[0]][currentPosition[1]] = '';
 
-    if (_currentMovingPeice.getType() == 'pawn') {
+    if (_currentMovingPeice.type == 'pawn') {
       _currentMovingPeice.updateState();
     }
   
@@ -45,9 +41,9 @@ export const gameController = (() => {
 
   const validateTurnStart = (obj) => {
     const selectedPeice = gameboard[obj.position[0]][obj.position[1]];
-    const potentialNextMoves = selectedPeice.getPotentialNextMoves();
+    const potentialNextMoves = selectedPeice.potentialNextMoves;
 
-    if (selectedPeice.getColor() != _currentPlayer) {
+    if (selectedPeice.color != _currentPlayer) {
       pubsub.publish('gameError', `You cannot select that peice - it is ${_currentPlayer}'s turn to move`);
     } else if (potentialNextMoves.length == 0) {
       // peice currently cannot move because it is blocked
@@ -56,7 +52,7 @@ export const gameController = (() => {
       // player has selected a valid peice to move
       _currentMovingPeice = selectedPeice;
       const turnData = {
-        currentPosition: selectedPeice.getCurrentPosition()
+        currentPosition: selectedPeice.currentPosition
       };
 
       pubsub.publish('validTurnStart', turnData);
