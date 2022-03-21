@@ -6,7 +6,7 @@ import { Bishop } from "./chessPeices/bishop";
 import { Pawn } from "./chessPeices/pawn";
 
 export const gboard = (() => {
-  // const wk = King('white');
+  const wk = King('white');
   const wq = Queen('white');
   const wr1 = Rook('white');
   const wr2 = Rook('white');
@@ -24,7 +24,7 @@ export const gboard = (() => {
   // const wp8 = Pawn('white');
 
 
-  // const bk = King('black');
+  const bk = King('black');
   const bq = Queen('black');
   const br1 = Rook('black');
   const br2 = Rook('black');
@@ -53,14 +53,14 @@ export const gboard = (() => {
   // ];
 
   const gameboard = [
-    [br1, bk1, bb1, bq, '', bb2, bk2, br2],
+    [br1, bk1, bb1, bq, bk, bb2, bk2, br2],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
-    [wr1, wk1, wb1, wq, '', wb2, wk2, wr2]
+    [wr1, wk1, wb1, wq, wk, wb2, wk2, wr2]
   ];
 
   return {
