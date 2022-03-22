@@ -41,17 +41,6 @@ export const gboard = (() => {
   const bp7 = Pawn('black');
   const bp8 = Pawn('black');
 
-  // const gameboard = [
-  //   [br1, bk1, bb1, bq, bk, bb2, bk2, br2],
-  //   [bp1, bp2, bp3, bp4, bp5, bp6, bp7, bp8],
-  //   ['', '', '', '', '', '', '', ''],
-  //   ['', '', '', '', '', '', '', ''],
-  //   ['', '', '', '', '', '', '', ''],
-  //   ['', '', '', '', '', '', '', ''],
-  //   [wp1, wp2, wp3, wp4, wp5, wp6, wp7, wp8],
-  //   [wr1, wk1, wb1, wq, wk, wb2, wk2, wr2]
-  // ];
-
   const gameboard = [
     [br1, bk1, bb1, bq, bk, bb2, bk2, br2],
     [bp1, bp2, bp3, bp4, bp5, bp6, bp7, bp8],
