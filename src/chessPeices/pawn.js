@@ -1,21 +1,9 @@
 import { chessPeice } from "./chessPeice";
 
-export const Pawn = function(peiceColor) {
+export const Pawn = (peiceColor) => {
   const moveSet = peiceColor == 'white' ? 
     [[-2, 0], [-1, -1], [-1, 0], [-1, 1]] : 
     [[2, 0], [1, -1], [1, 0], [1, 1]];
-
-  // const {
-  //   movesMade,
-  //   type,
-  //   color,
-  //   currentPosition,
-  //   setCurrentPosition,
-  //   potentialNextMoves,
-  //   // findLimitedMoves: setPotentialNextMoves,
-  //   setPotentialNextMoves,
-  //   samePosition
-  // } = chessPeice('pawn', peiceColor, true);
 
   const validateAdvancement = function (gameboard, targetPosition) {
     const targetSquare = gameboard[targetPosition[0]][targetPosition[1]];
@@ -66,18 +54,4 @@ export const Pawn = function(peiceColor) {
     chessPeice('pawn', peiceColor, true),
     { moveSet, validateMove, updateState },
   )
-
-  // return {
-  //   movesMade,
-  //   type,
-  //   color,
-  //   moveSet,
-  //   currentPosition,
-  //   setCurrentPosition,
-  //   potentialNextMoves,
-  //   setPotentialNextMoves,
-  //   samePosition,
-  //   validateMove,
-  //   updateState
-  // }
 }
