@@ -15,6 +15,8 @@ export const gameController = (() => {
     _currentMovingPeice = null;
   }
 
+  const samePosition = (position1, position2) => position1[0] == position2[0] && position1[1] == position1[1];
+
   const executeMove = (targetPosition) => {
     const currentPosition = _currentMovingPeice.currentPosition;
     let mode;
@@ -60,7 +62,7 @@ export const gameController = (() => {
   }
 
   const validateMove = (targetPosition) => {
-    if (_currentMovingPeice.samePosition(targetPosition)) {
+    if (samePosition(_currentMovingPeice.currentPosition, targetPosition)) {
       cancelTurn()
     } else if (_currentMovingPeice.validateMove(gameboard, targetPosition)) {
       executeMove(targetPosition);

@@ -49,11 +49,6 @@ export const chessPeice = (type, color, limited) => {
     })
   }
 
-  // this should belong to the gameController
-  const samePosition = function (targetPosition) {
-    return this.currentPosition[0] == targetPosition[0] && this.currentPosition[1] == targetPosition[1]
-  }
-
   return {
     movesMade,
     type,
@@ -63,7 +58,6 @@ export const chessPeice = (type, color, limited) => {
     potentialNextMoves,
     outOfBounds,
     setCurrentPosition,
-    setPotentialNextMoves,
-    samePosition
+    setPotentialNextMoves
   }
 };
