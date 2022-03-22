@@ -1,34 +1,15 @@
 import { chessPeice } from "./chessPeice";
 
-export const Knight = function(peiceColor) {
+export const Knight = (peiceColor) => {
   const moveSet = [[-2, -1], [-2, 1], [-1, 2], [1, 2], [2, 1], [2, -1], [1, -2], [-1, -2]];
 
-  const {
-    movesMade,
-    type,
-    color,
-    currentPosition,
-    setCurrentPosition,
-    potentialNextMoves,
-    findLimitedMoves: setPotentialNextMoves,
-    samePosition
-  } = chessPeice('knight', peiceColor, true);
-
-  const validateMove = (gameboard, targetPosition) => {
+  const validateMove = function (gameboard, targetPosition) {
     // check if the target position is at least one of the potential target positions
-    return (potentialNextMoves.some(move => targetPosition[0] == move[0] && targetPosition[1] == move[1]));
+    return (this.potentialNextMoves.some(move => targetPosition[0] == move[0] && targetPosition[1] == move[1]));
   }
-
-  return {
-    movesMade,
-    type,
-    color,
-    moveSet,
-    currentPosition,
-    setCurrentPosition,
-    potentialNextMoves,
-    setPotentialNextMoves,
-    samePosition,
-    validateMove
-  }
+  
+  return Object.assign(
+    chessPeice('knight', peiceColor, true),
+    { moveSet, validateMove }
+  )
 }
