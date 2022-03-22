@@ -49,64 +49,6 @@ export const chessPeice = (type, color, limited) => {
     })
   }
 
-  const findUnlimitedMoves = function (gameboard) {
-    this.potentialNextMoves.length = 0;
-
-    this.moveSet.forEach(move => {
-      let currentRow = this.currentPosition[0];
-      let currentCol = this.currentPosition[1];
-      let nextRow;
-      let nextCol;
-      let nextPosition;
-
-      while (true) {
-        nextRow = currentRow + move[0];
-        nextCol = currentCol + move[1];
-
-        if (outOfBounds(nextRow) || outOfBounds(nextCol)) break
-
-        nextPosition = gameboard[nextRow][nextCol];
-
-        if (nextPosition != '') {
-          if (nextPosition.color == this.color) {
-            break;
-          } else {
-            this.potentialNextMoves.push([nextRow, nextCol]);
-            break;
-          }
-        } else {
-          this.potentialNextMoves.push([nextRow, nextCol]);
-        }
-
-        currentRow = nextRow;
-        currentCol = nextCol;
-      }
-    })
-  }
-
-  const findLimitedMoves = function (gameboard) {
-    this.potentialNextMoves.length = 0;
-
-    this.moveSet.forEach(move => {
-      let nextRow = this.currentPosition[0] + move[0];
-      let nextCol = this.currentPosition[1] + move[1];
-
-      if (outOfBounds(nextRow) || outOfBounds(nextCol)) return;
-
-      let nextPosition = gameboard[nextRow][nextCol];
-
-      if (nextPosition != '') {
-        if (nextPosition.color == this.color) {
-          return
-        } else {
-          this.potentialNextMoves.push([nextRow, nextCol]);
-        }
-      } else {
-        this.potentialNextMoves.push([nextRow, nextCol]);
-      }
-    })
-  }
-
   // this should belong to the gameController
   const samePosition = function (targetPosition) {
     return this.currentPosition[0] == targetPosition[0] && this.currentPosition[1] == targetPosition[1]
@@ -117,13 +59,11 @@ export const chessPeice = (type, color, limited) => {
     type,
     color,
     limited,
-    outOfBounds,
     currentPosition,
-    setCurrentPosition,
     potentialNextMoves,
+    outOfBounds,
+    setCurrentPosition,
     setPotentialNextMoves,
-    findUnlimitedMoves,
-    findLimitedMoves,
     samePosition
   }
 };
