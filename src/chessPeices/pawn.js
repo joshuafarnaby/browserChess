@@ -5,22 +5,23 @@ export const Pawn = function(peiceColor) {
     [[-2, 0], [-1, -1], [-1, 0], [-1, 1]] : 
     [[2, 0], [1, -1], [1, 0], [1, 1]];
 
-  const {
-    movesMade,
-    type,
-    color,
-    currentPosition,
-    setCurrentPosition,
-    potentialNextMoves,
-    findLimitedMoves: setPotentialNextMoves,
-    samePosition
-  } = chessPeice('pawn', peiceColor);
+  // const {
+  //   movesMade,
+  //   type,
+  //   color,
+  //   currentPosition,
+  //   setCurrentPosition,
+  //   potentialNextMoves,
+  //   // findLimitedMoves: setPotentialNextMoves,
+  //   setPotentialNextMoves,
+  //   samePosition
+  // } = chessPeice('pawn', peiceColor, true);
 
-  const validateAdvancement = (gameboard, targetPosition) => {
+  const validateAdvancement = function (gameboard, targetPosition) {
     const targetSquare = gameboard[targetPosition[0]][targetPosition[1]];
 
-    if (Math.abs(currentPosition[0] - targetPosition[0] == 2)) {
-      const intermediateRow = (currentPosition[0] + targetPosition[0]) / 2;
+    if (Math.abs(this.currentPosition[0] - targetPosition[0] == 2)) {
+      const intermediateRow = (this.currentPosition[0] + targetPosition[0]) / 2;
       const intermediateSquare = gameboard[intermediateRow][targetPosition[1]];
 
       return intermediateSquare == '' && targetSquare == ''
@@ -29,49 +30,54 @@ export const Pawn = function(peiceColor) {
     }
   }
 
-  const validateCapture = (gameboard, targetPosition) => {
+  const validateCapture = function (gameboard, targetPosition) {
     const targetSquare = gameboard[targetPosition[0]][targetPosition[1]];
 
     if (targetSquare == '') {
       // en passant validation will go here
       return false
     } else {
-      return !(targetSquare.color == color)
+      return !(targetSquare.color == this.color)
     }
   }
 
-  const validateMove = (gameboard, targetPosition) => {
+  const validateMove = function (gameboard, targetPosition) {
     // check if the target position is at least one of the potential target positions
-    if (!potentialNextMoves.some(move => targetPosition[0] == move[0] && targetPosition[1] == move[1])) {
+    if (!this.potentialNextMoves.some(move => targetPosition[0] == move[0] && targetPosition[1] == move[1])) {
       return false
     }
 
-    if (currentPosition[1] == targetPosition[1]) {
-      return validateAdvancement(gameboard, targetPosition)
+    if (this.currentPosition[1] == targetPosition[1]) {
+      return validateAdvancement.call(this, gameboard, targetPosition)
     } else {
-      return validateCapture(gameboard, targetPosition)
+      return validateCapture.call(this, gameboard, targetPosition)
     }
   } 
 
   const updateState = function () {
-    this.movesMade += 1;
+    this.movesMade++;
 
-    if (movesMade == 1) {
+    if (this.movesMade == 1) {
       moveSet.shift()
     }
   }
 
-  return {
-    movesMade,
-    type,
-    color,
-    moveSet,
-    currentPosition,
-    setCurrentPosition,
-    potentialNextMoves,
-    setPotentialNextMoves,
-    samePosition,
-    validateMove,
-    updateState
-  }
+  return Object.assign(
+    chessPeice('pawn', peiceColor, true),
+    { moveSet, validateMove, updateState },
+  )
+
+  // return {
+  //   movesMade,
+  //   type,
+  //   color,
+  //   moveSet,
+  //   currentPosition,
+  //   setCurrentPosition,
+  //   potentialNextMoves,
+  //   setPotentialNextMoves,
+  //   samePosition,
+  //   validateMove,
+  //   updateState
+  // }
 }

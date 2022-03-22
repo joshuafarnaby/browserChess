@@ -15,9 +15,10 @@ export const Rook = (peiceColor) => {
     currentPosition,
     setCurrentPosition,
     potentialNextMoves,
-    findUnlimitedMoves: setPotentialNextMoves,
+    // findUnlimitedMoves: setPotentialNextMoves,
+    setPotentialNextMoves,
     samePosition
-  } = chessPeice('rook', peiceColor);
+  } = chessPeice('rook', peiceColor, false);
 
   return {
     movesMade,

@@ -12,7 +12,7 @@ export const Knight = function(peiceColor) {
     potentialNextMoves,
     findLimitedMoves: setPotentialNextMoves,
     samePosition
-  } = chessPeice('knight', peiceColor);
+  } = chessPeice('knight', peiceColor, true);
 
   const validateMove = (gameboard, targetPosition) => {
     // check if the target position is at least one of the potential target positions

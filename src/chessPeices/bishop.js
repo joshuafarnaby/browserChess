@@ -12,7 +12,7 @@ export const Bishop = function(peiceColor) {
     potentialNextMoves,
     findUnlimitedMoves: setPotentialNextMoves,
     samePosition
-  } = chessPeice('bishop', peiceColor);
+  } = chessPeice('bishop', peiceColor, false);
 
   const validateMove = (gameboard, targetPosition) => {
     // check if the target position is at least one of the potential target positions

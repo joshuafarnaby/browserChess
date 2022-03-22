@@ -17,7 +17,7 @@ export const Queen = function(peiceColor) {
     potentialNextMoves,
     findUnlimitedMoves: setPotentialNextMoves,
     samePosition
-  } = chessPeice('queen', peiceColor);
+  } = chessPeice('queen', peiceColor, false);
 
   return {
     movesMade,
